@@ -1,0 +1,28 @@
+/*
+ * Rosinterface.h
+ *
+ *  Created on: Feb 15, 2015
+ *      Author: srinivasan
+ */
+
+#include "sensor_msgs/Imu.h"
+
+
+#ifndef ROSINTERFACE_H_
+#define ROSINTERFACE_H_
+
+class SensorMsg_Imu {
+public:
+	Ros_interface();
+	virtual ~Ros_interface();
+	void Sync_Data();
+	sensor_msgs::Imu Get_Imu();
+private:
+	sensor_msgs::Imu imu_msg;
+	Acclr_Data Acclr;
+	Gyro_Data  Gyro;
+	Mgnto_Data Mgnt;
+
+};
+
+#endif /* ROSINTERFACE_H_ */

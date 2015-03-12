@@ -1,0 +1,19 @@
+
+#include "ROSNodeHandler"
+void ROSNodeHandler::serialCallback(const std_msgs::String::ConstPtr& msg)
+{
+	/*Program init*/
+	Imu_Parser imu_parse;
+	SensorMsg_Imu Imu;
+	
+	imu_parse.Parse_Serial_Data(std::string (msg->data.c_str()));
+ 	Imu.Sync_Data(std::ref(imu_parse));
+	pub.publish(Imu.Get_Data());
+
+}
+
+void ROSNOdeHandler::init()
+{
+	ros::Publisher pub = n.advertise<sensor_msgs::Imu>("imu_from_serial", 1);
+	ros::Subscriber sub = n.subscribe("serial_generic", 1000, serialCallback);
+}

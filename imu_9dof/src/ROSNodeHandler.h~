@@ -1,0 +1,40 @@
+/*
+ * ImuParser.h
+ *
+ *  Created on: Feb 14, 2015
+ *      Author: srinivasan
+ */
+
+#ifndef ROSNodeHander_H_
+#define ROSNodeHander_H_
+#include "ros/ros.h"
+#include "std_msgs/String.h"
+#include "Serial_Connect.h"
+#include "Imu_Parser.h"
+#include "SensorMsg_Imu.h"
+#include <iostream>
+#include <thread>
+
+
+class ROSNodeHandler {
+public:
+	ROSNodeHandler();
+	virtual ~Imu_Parser();
+	void init();
+
+private:
+
+	void ROSNodeHander::serialCallback(const std_msgs::String::ConstPtr& msg);
+	ros::NodeHandle n;
+	ros::Publisher pub;
+	ros::Subscriber sub;
+
+	volatile bool new_data;
+	Acclr_Data Acclr;
+	Gyro_Data  Gyro;
+	Mgnto_Data Mgnt;
+
+};
+
+#endif /* IMU_PARSER_H_ */
+
