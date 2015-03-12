@@ -1,0 +1,7 @@
+<launch>
+
+<node pkg="rosserial_python" type="serial_node.py" name="connection_to_car" args="/dev/ttyACM0" />
+
+<node pkg="car_slam" type="encoder_odom_tf" name="odom_tf_broadcaster"/>
+<node pkg="rviz" type="rviz" name="rviz" />
+</launch>

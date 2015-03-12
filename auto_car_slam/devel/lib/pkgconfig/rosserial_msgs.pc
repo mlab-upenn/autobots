@@ -1,0 +1,8 @@
+prefix=/home/zhili/hector_slam_tutorial/auto_car_slam/devel
+
+Name: rosserial_msgs
+Description: Description of rosserial_msgs
+Version: 0.6.3
+Cflags: -I/home/zhili/hector_slam_tutorial/auto_car_slam/devel/include
+Libs: -L/home/zhili/hector_slam_tutorial/auto_car_slam/devel/lib 
+Requires: message_runtime

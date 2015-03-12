@@ -1,0 +1,8 @@
+prefix=/home/zhili/hector_slam_tutorial/auto_car_slam/install
+
+Name: rosserial_client
+Description: Description of rosserial_client
+Version: 0.6.3
+Cflags: 
+Libs: -L/home/zhili/hector_slam_tutorial/auto_car_slam/install/lib 
+Requires: 

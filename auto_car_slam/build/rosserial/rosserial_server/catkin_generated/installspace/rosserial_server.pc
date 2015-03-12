@@ -1,0 +1,8 @@
+prefix=/home/zhili/hector_slam_tutorial/auto_car_slam/install
+
+Name: rosserial_server
+Description: Description of rosserial_server
+Version: 0.6.3
+Cflags: -I/home/zhili/hector_slam_tutorial/auto_car_slam/install/include
+Libs: -L/home/zhili/hector_slam_tutorial/auto_car_slam/install/lib 
+Requires: roscpp rosserial_msgs topic_tools

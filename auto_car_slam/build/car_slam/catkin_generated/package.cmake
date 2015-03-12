@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "car_slam")
+set(car_slam_MAINTAINER "zhili <zhili@todo.todo>")
+set(car_slam_DEPRECATED "")
+set(car_slam_VERSION "0.0.0")
+set(car_slam_BUILD_DEPENDS "rospy" "geometry_msgs" "nav_msgs" "tf" "message_generation" "rosconsole" "roscpp" "roscpp_serialization" "roslib" "rostime" "std_msgs" "std_srvs")
+set(car_slam_RUN_DEPENDS "geometry_msgs" "tf" "message_runtime" "rosconsole" "roscpp" "roscpp_serialization" "roslib" "rostime" "std_msgs" "std_srvs" "nav_msgs")
+set(car_slam_BUILDTOOL_DEPENDS "catkin")
