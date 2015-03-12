@@ -1,0 +1,21 @@
+#include "ros/ros.h"
+#include "std_msgs/String.h"
+#include <iostream>
+#include <thread>
+#include "RosNodeHandler.h"
+
+int main(int argc, char **argv)
+{
+
+	RosNodeHandler h;
+	h.init();
+	/*Ros Init*/
+	ros::init(argc, argv, "imu_generic");
+
+	/*Program init*/
+	ros::spin();
+	return 0;
+}
+
+
+
