@@ -33,6 +33,7 @@ int main(int argc, char** argv) {
 	while(1)
 	{
 		c = getch();
+		std::cout <<"Getch value " << c << std::endl;
 		// transmitting only space or arrow keys (escape sequences)
 		if ((int) c == 27)
 		{
