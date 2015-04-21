@@ -11,6 +11,7 @@
 #include "Acclr_Data.h"
 #include "Gyro_Data.h"
 #include "Mgnto_Data.h"
+#include "EuAngles.h"
 
 class Imu_Parser {
 public:
@@ -24,7 +25,7 @@ public:
 	Acclr_Data Publish_Accelerometer_Data();
 	Mgnto_Data Publish_Magnetometer_Data();
 	Gyro_Data Publish_Gyroscope_Data();
-
+	EuAngles Publish_Angles();
 	/*Publish Gyroscope , accelerometer and Magnetometer data*/
 	void Publish_All();
 
@@ -33,7 +34,7 @@ public:
 
 	bool isNewData();
 
-	void Publish_All(Acclr_Data * A, Gyro_Data *G,  Mgnto_Data *M, bool *flag);
+	void Publish_All(Acclr_Data * A, Gyro_Data *G,  Mgnto_Data *M, EuAngles *ang, bool *flag);
 
 	virtual ~Imu_Parser();
 
@@ -43,6 +44,7 @@ private:
 	Acclr_Data Acclr;
 	Gyro_Data  Gyro;
 	Mgnto_Data Mgnt;
+	EuAngles Angles;
 
 };
 

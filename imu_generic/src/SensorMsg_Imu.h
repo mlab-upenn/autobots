@@ -6,11 +6,12 @@
  */
 
 #include "sensor_msgs/Imu.h"
+#include "tf/transform_datatypes.h"
 #include "Acclr_Data.h"
 #include "Gyro_Data.h"
 #include "Mgnto_Data.h"
 #include "Imu_Parser.h"
-
+#include "EuAngles.h"
 
 class SensorMsg_Imu {
 public:
@@ -23,6 +24,8 @@ private:
 	Acclr_Data Acclr;
 	Gyro_Data  Gyro;
 	Mgnto_Data Mgnt;
+	EuAngles Angles;
+	
 	int Seq_count = 0;
 
 };

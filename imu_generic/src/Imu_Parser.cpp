@@ -31,8 +31,8 @@ Imu_Parser::Imu_Parser()
 
 void Imu_Parser::Parse_Serial_Data(Serial_Connect& SPort) {
 	
-	std::string delimStart = "B";
-	std::string delimEnd  =  "E";	
+	std::string delimStart = "BIMU";
+	std::string delimEnd  =  "EIMU";	
 	std::string buffer;
 	while(1)
 	{
@@ -73,31 +73,32 @@ void Imu_Parser::Parse_Serial_Data(Serial_Connect& SPort) {
 
 void Imu_Parser::Parse_Serial_Data(std::string buffer) {
 	
-	std::string delimStart = "B";
-	std::string delimEnd  =  "E";	
+	std::string delimStart = "BIMU";
+	std::string delimEnd  =  "EIMU";
 	std::mutex mtx;
 #if BOOST_REGEX
 		//Boost regex
-		const boost::regex e("(?<=B)(.*?)(?=E)");
+		const boost::regex e("(?<=BIMU)(.*?)(?=EIMU)");
 		boost::smatch match;		
 		if (boost::regex_search(buffer, match, e))
 		{
 			mtx.lock();
 			new_data = true;
 			std::stringstream ss(match[1]);
-			ss >> Mgnt.x>> Mgnt.y >> Mgnt.z >> Acclr.x >> Acclr.y >> Acclr.z >> Gyro.x >> Gyro.y >> Gyro.z;
+			ss >> Mgnt.x>> Mgnt.y >> Mgnt.z >> Acclr.x >> Acclr.y >> Acclr.z >> Gyro.x >> Gyro.y >> Gyro.z >> Angles.roll >> Angles.pitch >> Angles.yaw;
 			mtx.unlock();
 		}
 #else
 		std::size_t first 		= buffer.find(delimStart);
 		std::size_t last 		= buffer.find(delimEnd);
+		//std::cout << first << " " << last << buffer << std::endl;
 		if((first  != std::string::npos) && (last  != std::string::npos))
 		{
 		mtx.lock();
 			new_data = true;
 			std::string strNew 	= buffer.substr(first + delimStart.length(),last-first - delimStart.length());
 			std::stringstream ss(strNew);
-			ss >> Mgnt.x>> Mgnt.y >> Mgnt.z >> Acclr.x >> Acclr.y >> Acclr.z >> Gyro.x >> Gyro.y >> Gyro.z;
+			ss >> Mgnt.x>> Mgnt.y >> Mgnt.z >> Acclr.x >> Acclr.y >> Acclr.z >> Gyro.x >> Gyro.y >> Gyro.z >> Angles.roll >> Angles.pitch >> Angles.yaw;
 		mtx.unlock();
 		}
 #endif
@@ -125,11 +126,16 @@ Mgnto_Data Imu_Parser::Publish_Magnetometer_Data()
 	return Mgnt;
 }
 
+EuAngles Imu_Parser::Publish_Angles()
+{
+	return Angles;
+}
+
 bool Imu_Parser::isNewData()
 {
 	return new_data;
 }
-void Imu_Parser::Publish_All(Acclr_Data * A, Gyro_Data *G,  Mgnto_Data *M , bool * flag)
+void Imu_Parser::Publish_All(Acclr_Data * A, Gyro_Data *G,  Mgnto_Data *M , EuAngles *ang, bool * flag)
 {
 	std::mutex mtx;
 	mtx.lock();
@@ -139,6 +145,7 @@ void Imu_Parser::Publish_All(Acclr_Data * A, Gyro_Data *G,  Mgnto_Data *M , bool
 		*A = Acclr;
 		*G = Gyro;
 		*M = Mgnt;
+		*ang = Angles;
 		new_data = false;
 	}
 	mtx.unlock();

@@ -164,7 +164,7 @@ include_directories(
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-add_executable(imu_generic src/Imu_main.cpp src/Acclr_Data.cpp src/Gyro_Data.cpp src/Imu_Parser.cpp src/Mgnto_Data.cpp src/SensorMsg_Imu.cpp src/Serial_Connect.cpp src/RosNodeHandler.cpp)
+add_executable(imu_generic src/Imu_main.cpp src/Acclr_Data.cpp src/Gyro_Data.cpp src/Imu_Parser.cpp src/Mgnto_Data.cpp src/SensorMsg_Imu.cpp src/Serial_Connect.cpp src/RosNodeHandler.cpp src/EuAngles.cpp)
 target_link_libraries(imu_generic ${catkin_LIBRARIES}  ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
 add_dependencies(imu_generic imu_generic_generate_messages_cpp)
 set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")

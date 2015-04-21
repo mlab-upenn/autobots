@@ -17,6 +17,7 @@ SensorMsg_Imu::SensorMsg_Imu() {
 	imu_msg.orientation.y = 0.0;
 	imu_msg.orientation.z = 0.0;
 	imu_msg.orientation.w = 0.0;
+	imu_msg.orientation_covariance[0] = -1;
 
 	imu_msg.angular_velocity.x = 0.0;
 	imu_msg.angular_velocity.y = 0.0;
@@ -37,7 +38,7 @@ SensorMsg_Imu::~SensorMsg_Imu() {
 void SensorMsg_Imu::Sync_Data(Imu_Parser& parser){
 	bool flag = false;
 	while (!flag)
-		parser.Publish_All(&Acclr, &Gyro, &Mgnt, &flag);
+		parser.Publish_All(&Acclr, &Gyro, &Mgnt, &Angles, &flag);
 }
 
 /*Return the imu message*/
@@ -47,10 +48,11 @@ sensor_msgs::Imu SensorMsg_Imu::Get_Data()
 	imu_msg.angular_velocity.y = Gyro.y;
 	imu_msg.angular_velocity.z = Gyro.z;
 
-	imu_msg.linear_acceleration.x = Acclr.x;
-	imu_msg.linear_acceleration.y = Acclr.y;
-	imu_msg.linear_acceleration.z = Acclr.z;
+	imu_msg.linear_acceleration.x = Acclr.x/1000;
+	imu_msg.linear_acceleration.y = Acclr.y/1000;
+	imu_msg.linear_acceleration.z = Acclr.z/1000;
 	
+	tf::quaternionTFToMsg(tf::createQuaternionFromRPY(Angles.roll, Angles.pitch, Angles.yaw),imu_msg.orientation );
 	imu_msg.header.seq   = Seq_count++;
 	imu_msg.header.stamp = ros::Time::now();
 	
